@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('content')
- <h3 class="mb-4">Dashboard</h3>
+ <h3 class="mb-4">Dashboard SiPinjam</h3>
  <div class="row g-3">
  <div class="col-md-3">
  <div class="card border-primary shadow-sm">

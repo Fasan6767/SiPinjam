@@ -1,0 +1,37 @@
+body {
+ font-family: Arial, sans-serif;
+ margin: 40px;
+ background-color: #f4f6f9;
+}
+h1 {
+ text-align: center;
+ color: #2c3e50;
+}
+.logo {
+ display: block;
+ margin: 0 auto 20px;
+ width: 150px;
+}
+table {
+ width: 70%;
+ margin: auto;
+ border-collapse: collapse;
+ background: #ffffff;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+th, td {
+ border: 1px solid #cccccc;
+ padding: 12px;
+ text-align: center;
+}
+th {
+ background-color: #27da77;
+ color: white;
+}
+tr:nth-child(even) {
+ background-color: #f9f9f9;
+}
+.stok-habis {
+ color: #e74c3c;
+ font-weight: bold;
+}

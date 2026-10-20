@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Category;
+use App\Models\Item;
+use App\Models\Loan;
 
 Route::get('/', function () {
  return view('homepage');
@@ -40,26 +43,14 @@ Route::get('/latihan-blade', function () {
 })->name('latihan-blade');
 
 Route::get('/alat', function () {
- $alat = [
- ['kode' => 'ALT-0001', 'nama' => 'Multimeter Digital', 'kategori' => 'Alat
-Ukur', 'stok' => 5],
- ['kode' => 'ALT-0002', 'nama' => 'Osiloskop', 'kategori' => 'Alat
-Ukur', 'stok' => 0],
- ['kode' => 'ALT-0003', 'nama' => 'Solder 40 Watt', 'kategori' => 'Alat
-Solder', 'stok' => 8],
- ['kode' => 'ALT-0004', 'nama' => 'Arduino Uno', 'kategori' =>
-'Mikrokontroler', 'stok' => 12],
- ['kode' => 'ALT-0005', 'nama' => 'Tang Potong', 'kategori' =>
-'Perkakas', 'stok' => 3],
-['kode' => 'ALT-0006', 'nama' => 'Pinset', 'kategori' =>
-'Perkakas', 'stok' => 0],
-['kode' => 'ALT-0007', 'nama' => 'Gegep', 'kategori' =>
-'Perkakas', 'stok' => 67]
- ];
+ $alat = Item::with('category')->orderBy('name')->get();
  return view('alat', ['alat' => $alat]);
-})->name('alat');
+});
 
 Route::get('/dashboard', function () {
- return view('dashboard');
-})->name('dashboard');
-
+ return view('dashboard', [
+ 'jumlahAlat' => Item::count(),
+ 'jumlahKategori' => Category::count(),
+ 'sedangDipinjam' => Loan::where('status', 'dipinjam')->count(),
+ ]);
+});

@@ -30,10 +30,10 @@
  <div class="col-md-3">
  <div class="card border-danger shadow-sm">
  <div class="card-body">
- <div class="text-muted">Peminjaman Terlambat</div>
-<div class="fs-2 fw-bold text-danger">0</div>
+ <div class="text-muted">Stok Menipis</div>
+<div class="fs-2 fw-bold text-danger">{{ $stokMenipis }}</div>
  </div>
  </div>
  </div>
  </div>
-@endsection 
+@endsection

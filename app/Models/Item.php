@@ -29,6 +29,11 @@ class Item extends Model
     return $this->belongsToMany(Loan::class, 'loan_item')->withPivot('qty')->withTimestamps();
  }
 
+ public function scopeLowStock($query)
+ {
+    return $query->where('stock', '>', 0)->where('stock', '<', 3);
+ }
+
 }
 
 

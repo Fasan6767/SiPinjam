@@ -7,6 +7,30 @@
         <i class="bi bi-plus-lg"></i> Pinjam Alat
     </a>
 </div>
+
+{{-- Form Filter Status Peminjaman --}}
+<form method="GET" action="{{ route('peminjaman.index') }}" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <select name="status" class="form-select">
+            <option value="">Semua Status</option>
+            <option value="dipinjam" @selected(request('status')==='dipinjam' )>Dipinjam</option>
+            <option value="dikembalikan" @selected(request('status')==='dikembalikan' )>Dikembalikan</option>
+        </select>
+    </div>
+    <div class="col-md-2 d-grid">
+        <button type="submit" class="btn btn-outline-primary">
+            <i class="bi bi-filter"></i> Filter
+        </button>
+    </div>
+    @if (request()->filled('status'))
+    <div class="col-md-2 d-grid">
+        <a href="{{ route('peminjaman.index') }}" class="btn btn-outline-secondary">
+            Reset
+        </a>
+    </div>
+    @endif
+</form>
+
 <div class="card shadow-sm">
     <div class="card-body">
         <table class="table table-striped align-middle mb-0">
@@ -37,9 +61,9 @@
                     <td>{{ $peminjaman->due_date->format('d/m/Y') }}</td>
                     <td>
                         @if ($peminjaman->status === 'dipinjam')
-                        <span class="badge bg-warning textdark">Dipinjam</span>
+                        <span class="badge bg-warning text-dark">Dipinjam</span>
                         @else
-                        <span class="badge bgsuccess">Dikembalikan</span>
+                        <span class="badge bg-success">Dikembalikan</span>
                         @endif
                     </td>
                     @if (auth()->user()->isAdmin())
@@ -50,7 +74,7 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-sm btn-success">
-                                <i class="bi bi-arrow-returnleft"></i> Kembalikan
+                                <i class="bi bi-arrow-return-left"></i> Kembalikan
                             </button>
                         </form>
                         @endif
@@ -59,16 +83,17 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center text-muted">Belum ada
-                        peminjaman.</td>
+                    <td colspan="{{ auth()->user()->isAdmin() ? 7 : 6 }}" class="text-center text-muted">
+                        Belum ada peminjaman.
+                    </td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 </div>
+
 <div class="mt-3">
     {{ $semuaPeminjaman->links() }}
 </div>
 @endsection
-
